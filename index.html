@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpazaSa — sonke singena da!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== PAGE 1: HERO ===================== -->
+<div id="page-hero" class="page-section active">
+  <div class="hero-page">
+    <div class="hero-bg"></div>
+    <nav class="hero-nav">
+      <div class="logo">SpazaSa</div>
+    </nav>
+    <div class="hero-content">
+      <h1 class="hero-title">sonke singena da!</h1>
+      <p class="hero-subtitle">SHOP WITH CONFIDENCE FROM YOUR VERY OWN LOCAL TRUSTED COMMUNITY, SHOPPING MADE EASIER JUST FOR YOU</p>
+      <button class="btn-get-started" onclick="showPage('marketplace')">GET STARTED</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-label">BY MPILWENHLE MTSHALI</div><div class="stat-value">SINCE 2026</div></div>
+      <div class="stat-item"><div class="stat-label">All shopping you want</div></div>
+      <div class="stat-item"><div class="stat-label">Sell all you want</div></div>
+      <div class="stat-item"><div class="stat-label">ANYWHERE YOU ARE</div></div>
+    </div>
+    <div class="hero-footer-brand">BY MPILWENHLE MTSHALI</div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 2: LANGUAGE ===================== -->
+<div id="page-language" class="page-section">
+  <div class="lang-page">
+    <div class="lang-hero-strip"></div>
+    <div class="lang-content">
+      <div class="lang-left">
+        <h2 class="lang-heading">Please select desirable <span>language</span></h2>
+        <button class="lang-btn" onclick="setLang('isizulu')">ISIZULU</button>
+        <button class="lang-btn" onclick="setLang('sesotho')">SESOTHO</button>
+        <button class="lang-btn" onclick="setLang('english')">ENGLISH</button>
+        <button class="lang-btn" onclick="setLang('afrikaans')">AFRIKAANS</button>
+      </div>
+      <div class="lang-img">
+        <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600" alt="Happy shopper" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 3: MARKETPLACE ===================== -->
+<div id="page-marketplace" class="page-section">
+  <div class="marketplace-page">
+
+    <!-- Top Nav — single row: logo | hamburger | home | search | cart | avatar -->
+    <nav class="main-nav">
+      <div class="logo" style="color:var(--teal);">SpazaSa</div>
+
+      <button class="icon-btn" onclick="showPage('language')" title="Language">
+        <span class="hamburger">&#9776;</span>
+      </button>
+      <button class="icon-btn" onclick="showPage('hero')" title="Home">&#8962;</button>
+
+      <div class="search-bar">
+        <span class="search-icon-left">&#128269;</span>
+        <input type="text" id="searchInput" placeholder="Search" oninput="filterProducts()" />
+      </div>
+
+      <button class="icon-btn cart-nav-btn" onclick="showPage('cart')" title="Cart">
+        🛒 <span class="cart-badge-nav" id="cartBadgeNav">0</span>
+      </button>
+
+      <span id="userDisplay" class="user-display" style="display:none;"></span>
+      <button id="btnLogin" class="btn-auth" onclick="showAuthModal('login')"><span data-key="login">Login</span></button>
+      <button id="btnLogout" class="btn-auth btn-logout" onclick="doLogout()" style="display:none;"><span data-key="logout">Logout</span></button>
+      <img class="nav-avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80" alt="User" id="navAvatar" />
+    </nav>
+
+    <!-- Category Tabs -->
+    <div class="category-tabs" id="categoryTabs">
+      <button class="cat-tab active" onclick="filterCat(this,'all')" data-key="used">USED</button>
+      <button class="cat-tab" onclick="filterCat(this,'new')" data-key="new">NEW</button>
+      <button class="cat-tab" onclick="filterCat(this,'women')" data-key="women">WOMEN</button>
+      <button class="cat-tab" onclick="filterCat(this,'men')" data-key="men">MEN</button>
+      <button class="cat-tab" onclick="filterCat(this,'kids')" data-key="kids">KIDS</button>
+      <button class="cat-tab" onclick="openAdmin()" data-key="manage">MANAGE</button>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-section">
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+
+    <!-- Floating Add/Sell Button -->
+    <button class="fab-sell" onclick="openSellModal()" title="Sell an item">+</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 4: PRODUCT DETAIL ===================== -->
+<div id="page-detail" class="page-section">
+  <div class="product-detail-page">
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="showPage('marketplace')">BACK</button>
+
+    <!-- Product Card -->
+    <div class="detail-card">
+      <div class="detail-img-wrap">
+        <img id="mainDetailImg" src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=700" alt="Product" />
+      </div>
+      <div class="detail-info">
+        <h2 class="detail-title" id="detailName">Product</h2>
+        <div class="detail-price" id="detailPrice">R250</div>
+        <div class="detail-location" id="detailLocation">Midrand</div>
+        <div class="detail-cond" id="detailCond"><strong>new</strong></div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="detail-actions">
+      <button class="btn-buy-action" onclick="addDetailToCart()" id="btnAddCart">BUY</button>
+      <button class="btn-wish-action" onclick="addToWishlist()" id="btnWish">WISH</button>
+    </div>
+
+    <!-- Chat with Seller -->
+    <div class="chat-seller-wrap">
+      <button class="btn-chat-seller" onclick="openChat()">CHAT WITH SELLER</button>
+    </div>
+
+  </div>
+
+  <!-- Chat Overlay (slides up over detail) -->
+  <div class="chat-overlay" id="chatOverlay">
+    <div class="chat-header-bar">
+      <img class="chat-seller-avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80" alt="Seller" id="chatSellerAvatar"/>
+      <span class="chat-seller-name" id="chatSellerName">Seller</span>
+      <button class="chat-back-btn" onclick="closeChat()">BACK</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendChat()" />
+    </div>
+  </div>
+</div>
+
+<!-- ===================== PAGE 5: CART ===================== -->
+<div id="page-cart" class="page-section">
+  <div class="cart-page">
+    <nav class="main-nav">
+      <div class="logo" style="color:var(--teal);">SpazaSa</div>
+      <div class="nav-right" style="margin-left:auto;">
+        <button class="btn-sell" onclick="showPage('marketplace')">← <span data-key="continueShopping">Continue Shopping</span></button>
+      </div>
+    </nav>
+    <div class="cart-container">
+      <h2 class="cart-heading" id="cartHeading" data-key="yourCart">Your Cart</h2>
+      <div id="cartItems" class="cart-items-list"></div>
+      <div class="cart-summary" id="cartSummary"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SELL MODAL ===================== -->
+<div class="modal-overlay" id="sellModal" onclick="closeSellOnBg(event)">
+  <div class="sell-modal-card">
+    <button class="sell-modal-back" onclick="closeSellModal()">BUY</button>
+
+    <!-- Image Drop Zone -->
+    <div class="sell-drop-zone" onclick="document.getElementById('photoUpload').click()">
+      <span class="drop-placeholder" id="lblDrop">Drop Your Image Here</span>
+      <input type="file" id="photoUpload" multiple accept="image/*" style="display:none" onchange="previewPhotos(event)" />
+    </div>
+    <div class="photo-thumbnails" id="photoThumbs"></div>
+
+    <!-- Form Fields -->
+    <div class="sell-form-row">
+      <div class="sell-form-group">
+        <input type="text" id="itemTitle" placeholder="TITLE" />
+      </div>
+      <div class="sell-form-group">
+        <input type="number" id="itemPrice" placeholder="PRICE" />
+      </div>
+    </div>
+
+    <div class="sell-form-row">
+      <div class="sell-form-group">
+        <input type="text" id="itemCategory" placeholder="CATEGORY" />
+      </div>
+      <div class="sell-form-group condition-wrap">
+        <label class="radio-opt"><input type="radio" name="condition" value="new" checked /> <span>NEW</span></label>
+        <label class="radio-opt"><input type="radio" name="condition" value="used" /> <span>USED</span></label>
+      </div>
+    </div>
+
+    <div class="sell-form-group full-width">
+      <textarea id="itemDesc" placeholder="DISCRIPTION"></textarea>
+    </div>
+
+    <input type="hidden" id="itemLocation" value="Midrand" />
+
+    <button class="btn-publish" onclick="postItem()" id="btnPostFree">PUBLISH</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
