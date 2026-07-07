@@ -1,5 +1,4 @@
 <?php
-// controllers/CartController.php
 
 if (!class_exists('CartController')) {
 
@@ -48,8 +47,6 @@ if (!class_exists('CartController')) {
                 echo json_encode(['success' => false, 'error' => 'Product not found']);
                 exit;
             }
-
-            // Check if product is sold (optional)
             if ($product['status'] === 'sold') {
                 echo json_encode(['success' => false, 'error' => 'Item already sold']);
                 exit;
@@ -121,4 +118,4 @@ if (!class_exists('CartController')) {
         }
     }
 
-} // end class_exists
+}
