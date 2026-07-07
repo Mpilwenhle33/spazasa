@@ -1,5 +1,4 @@
 <?php
-// views/admin/users.php
 ?>
 <!DOCTYPE html>
 <html lang="en">
