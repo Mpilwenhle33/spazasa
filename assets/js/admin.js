@@ -1,10 +1,4 @@
-// =====================================================
-// SpazaSa - Admin JavaScript
-// =====================================================
 
-// =============================================
-// SIDEBAR TOGGLE
-// =============================================
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     if (sidebar) {
@@ -12,9 +6,7 @@ function toggleSidebar() {
     }
 }
 
-// =============================================
-// TOAST NOTIFICATION
-// =============================================
+
 function adminToast(msg) {
     let t = document.getElementById('adminToast');
     if (!t) {
@@ -29,9 +21,6 @@ function adminToast(msg) {
     t._timeout = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-// =============================================
-// USER MANAGEMENT
-// =============================================
 function toggleUserStatus(userId, currentStatus) {
     const newStatus = currentStatus === 'banned' ? 'active' : 'banned';
     if (!confirm('Change user status to ' + newStatus + '?')) return;
@@ -53,9 +42,6 @@ function toggleUserStatus(userId, currentStatus) {
     .catch(() => adminToast('Network error'));
 }
 
-// =============================================
-// PRODUCT MANAGEMENT
-// =============================================
 function approveProduct(productId) {
     if (!confirm('Approve this product?')) return;
     
@@ -73,10 +59,6 @@ function deleteProduct(productId) {
     
     window.location = 'admin.php?action=delete-product-admin&id=' + productId;
 }
-
-// =============================================
-// RBAC FUNCTIONS
-// =============================================
 function assignRole() {
     const userSelect = document.getElementById('rbacUserSelect');
     const roleSelect = document.getElementById('rbacRoleSelect');
@@ -105,9 +87,6 @@ function assignRole() {
     .catch(() => adminToast('Network error'));
 }
 
-// =============================================
-// TABLE SEARCH FILTER
-// =============================================
 function filterTable(tableId, query) {
     const table = document.getElementById(tableId);
     if (!table) return;
@@ -121,11 +100,7 @@ function filterTable(tableId, query) {
     });
 }
 
-// =============================================
-// INITIALIZATION
-// =============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Close sidebar on outside click for mobile
     document.addEventListener('click', function(e) {
         const sidebar = document.getElementById('sidebar');
         const menuBtn = document.querySelector('.topbar-menu-btn');
@@ -135,8 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
-    // Handle enter key on search
     const searchInput = document.querySelector('.topbar-search');
     if (searchInput) {
         searchInput.addEventListener('keydown', function(e) {
@@ -149,10 +122,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-// =====================================================
-// SpazaSa - Admin JavaScript
-// =====================================================
 
 function adminToast(msg) {
     let t = document.getElementById('adminToast');
