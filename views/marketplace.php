@@ -1,5 +1,4 @@
 <?php
-// views/marketplace.php - No emojis, consistent theme
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +8,6 @@
     <title>SpazaSa — <?= t('marketplace') ?></title>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        /* User Menu Dropdown Styles */
         .user-menu {
             position: relative;
             display: flex;
@@ -142,8 +140,6 @@
 
 <div id="page-marketplace" class="page-section active">
     <div class="marketplace-page">
-
-        <!-- Navigation -->
         <nav class="main-nav">
             <div class="logo" style="color:var(--teal);">SpazaSa</div>
 
@@ -203,8 +199,6 @@
                 <button class="btn-auth" onclick="window.location='index.php?action=register'" style="background:var(--teal);color:white;"><?= t('sign_up') ?></button>
             <?php endif; ?>
         </nav>
-
-        <!-- Category Tabs -->
         <div class="category-tabs" id="categoryTabs">
             <button class="cat-tab active" onclick="window.location='index.php?action=marketplace'">ALL</button>
             <?php foreach ($categories as $cat): ?>
@@ -216,8 +210,6 @@
                 <button class="cat-tab" onclick="window.location='admin.php'" style="border-color:var(--teal);color:var(--teal);">MANAGE</button>
             <?php endif; ?>
         </div>
-
-        <!-- Products Grid -->
         <div class="products-section">
             <div class="products-grid" id="productsGrid">
                 <?php if (empty($products)): ?>
