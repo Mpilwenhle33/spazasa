@@ -5,12 +5,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-
-// Load configuration
 require_once __DIR__ . '/config/DatabaseConnection.php';
 require_once __DIR__ . '/config/ValidationHelper.php';
 
-// Load models
 require_once __DIR__ . '/models/User.php';
 require_once __DIR__ . '/models/Product.php';
 require_once __DIR__ . '/models/Category.php';
@@ -19,7 +16,6 @@ require_once __DIR__ . '/models/Message.php';
 require_once __DIR__ . '/models/Order.php';
 require_once __DIR__ . '/models/Wishlist.php';
 
-// Load controllers
 require_once __DIR__ . '/controllers/AuthController.php';
 require_once __DIR__ . '/controllers/ProductController.php';
 require_once __DIR__ . '/controllers/CartController.php';
@@ -28,10 +24,7 @@ require_once __DIR__ . '/controllers/ProfileController.php';
 require_once __DIR__ . '/controllers/MessageController.php';
 require_once __DIR__ . '/controllers/LanguageController.php';
 
-// Set language from session or default
 $currentLang = $_SESSION['language_pref'] ?? 'english';
-
-// Translation array
 $lang = [
     'english' => [
         'home' => 'Home',
@@ -262,23 +255,15 @@ $lang = [
         'my_orders' => 'My Bestellings'
     ]
 ];
-
-// Helper function to translate
 function t($key) {
     global $lang, $currentLang;
     return $lang[$currentLang][$key] ?? $lang['english'][$key] ?? $key;
 }
-
-// Get action
 $action = $_GET['action'] ?? 'home';
-
-// Helper function to get categories
 function getCategories() {
     $categoryModel = new Category();
     return $categoryModel->getAll();
 }
-
-// Route handling
 switch ($action) {
     case 'home':
         include __DIR__ . '/views/home.php';
@@ -295,7 +280,6 @@ switch ($action) {
         
     case 'marketplace':
         $productModel = new Product();
-        // Check if filtering by seller
         if (isset($_GET['seller']) && is_numeric($_GET['seller'])) {
             $products = $productModel->getBySeller($_GET['seller']);
         } else {
@@ -409,7 +393,6 @@ switch ($action) {
             header('Location: index.php?action=login');
             exit;
         }
-        // Redirect to profile which already shows orders
         header('Location: index.php?action=profile');
         exit;
         break;
