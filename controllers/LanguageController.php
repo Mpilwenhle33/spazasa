@@ -1,5 +1,4 @@
 <?php
-// controllers/LanguageController.php
 
 class LanguageController {
     
@@ -11,15 +10,12 @@ class LanguageController {
             $allowed = ['english', 'isizulu', 'sesotho', 'afrikaans'];
             if (in_array($language, $allowed)) {
                 $_SESSION['language_pref'] = $language;
-                
-                // Update user preference if logged in
                 if (isset($_SESSION['user_id'])) {
                     try {
                         $db = DatabaseConnection::getInstance()->getConnection();
                         $stmt = $db->prepare("UPDATE users SET language_pref = ? WHERE user_id = ?");
                         $stmt->execute([$language, $_SESSION['user_id']]);
                     } catch (Exception $e) {
-                        // Silent fail
                     }
                 }
                 
