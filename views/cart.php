@@ -1,5 +1,4 @@
 <?php
-// views/cart.php - No emojis, consistent theme
 ?>
 <!DOCTYPE html>
 <html lang="en">
