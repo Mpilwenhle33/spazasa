@@ -1,5 +1,4 @@
 <?php
-// models/Category.php
 
 require_once __DIR__ . '/../config/DatabaseConnection.php';
 
