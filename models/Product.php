@@ -1,5 +1,4 @@
 <?php
-// models/Product.php
 
 require_once __DIR__ . '/../config/DatabaseConnection.php';
 
@@ -23,14 +22,10 @@ class Product {
             $data['cond'] ?? 'Good',
             $data['location'] ?? '',
             $data['postal_code'] ?? null,
-            $data['status'] ?? 'approved'   // Auto-approve
+            $data['status'] ?? 'approved'   
         ]);
         return $this->db->lastInsertId();
     }
-
-    /**
-     * Get available products for marketplace (excludes sold)
-     */
     public function getApproved($limit = 40) {
         $sql = "SELECT p.*, u.username as seller_username, u.full_name as seller_name,
                        c.name as category_name,
@@ -46,9 +41,6 @@ class Product {
         return $stmt->fetchAll();
     }
 
-    /**
-     * Get products by category (excludes sold)
-     */
     public function getByCategory($categoryId, $limit = 40) {
         $sql = "SELECT p.*, u.username as seller_username, u.full_name as seller_name,
                        c.name as category_name,
@@ -64,9 +56,6 @@ class Product {
         return $stmt->fetchAll();
     }
 
-    /**
-     * Search products (excludes sold)
-     */
     public function search($query, $limit = 40) {
         $sql = "SELECT p.*, u.username as seller_username, u.full_name as seller_name,
                        c.name as category_name,
@@ -83,9 +72,6 @@ class Product {
         return $stmt->fetchAll();
     }
 
-    /**
-     * Get products by seller (includes sold – for seller's own view)
-     */
     public function getBySeller($sellerId) {
         $sql = "SELECT p.*, 
                        (SELECT image_path FROM product_images WHERE product_id = p.product_id AND is_cover = 1 LIMIT 1) as cover_image
@@ -97,9 +83,6 @@ class Product {
         return $stmt->fetchAll();
     }
 
-    /**
-     * Get single product by ID (no status filter – allows viewing sold items)
-     */
     public function getById($productId) {
         $sql = "SELECT p.*, u.username as seller_username, u.full_name as seller_name,
                        c.name as category_name,
@@ -113,9 +96,6 @@ class Product {
         return $stmt->fetch();
     }
 
-    /**
-     * Get all products (for admin – includes sold, pending, etc.)
-     */
     public function getAll($filters = []) {
         $sql = "SELECT p.*, u.username as seller_username, u.full_name as seller_name,
                        c.name as category_name,
@@ -198,8 +178,7 @@ class Product {
         return $stmt->fetch()['total'];
     }
 
-    public function addImage($productId, $imagePath, $isCover = false, $sortOrder = 0) {
-    // Explicitly cast boolean to integer (PDO converts false to '' otherwise)
+    public function addImage($productId, $imagePath, $isCover = false, $sortOrder = 0) 
     $isCoverInt = $isCover ? 1 : 0;
     
     $sql = "INSERT INTO product_images (product_id, image_path, is_cover, sort_order) VALUES (?, ?, ?, ?)";
