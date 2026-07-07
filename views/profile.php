@@ -1,5 +1,4 @@
 <?php
-// views/profile.php - Added payment reference column
 ?>
 <!DOCTYPE html>
 <html lang="en">
