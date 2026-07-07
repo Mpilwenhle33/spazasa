@@ -1,5 +1,4 @@
 <?php
-// models/Cart.php
 
 require_once __DIR__ . '/../config/DatabaseConnection.php';
 
@@ -11,19 +10,16 @@ class Cart {
     }
 
     public function add($userId, $productId, $quantity = 1) {
-        // Check if item already exists
         $sql = "SELECT cart_item_id, quantity FROM cart_items WHERE user_id = ? AND product_id = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([$userId, $productId]);
         $existing = $stmt->fetch();
 
         if ($existing) {
-            // Update quantity
             $sql = "UPDATE cart_items SET quantity = quantity + ? WHERE user_id = ? AND product_id = ?";
             $stmt = $this->db->prepare($sql);
             return $stmt->execute([$quantity, $userId, $productId]);
         } else {
-            // Insert new
             $sql = "INSERT INTO cart_items (user_id, product_id, quantity) VALUES (?, ?, ?)";
             $stmt = $this->db->prepare($sql);
             return $stmt->execute([$userId, $productId, $quantity]);
