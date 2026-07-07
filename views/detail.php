@@ -1,5 +1,4 @@
 <?php
-// views/detail.php - No emojis, consistent theme
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -135,7 +134,7 @@
     </div>
 </div>
 
-<!-- Chat Overlay -->
+
 <div class="chat-overlay" id="chatOverlay">
     <div class="chat-header">
         <span id="chatSellerName">Seller</span>
@@ -151,7 +150,7 @@
 </div>
 
 <script>
-// Image gallery
+
 let currentImage = 0;
 const images = <?= json_encode(array_column($images, 'image_path')) ?>;
 
@@ -239,7 +238,6 @@ async function refreshCartBadge() {
     } catch (e) {}
 }
 
-// Chat functions
 let chatUserId = null, chatProductId = null, chatLastId = 0, chatPollInterval = null;
 
 function openChat(userId, productId, userName) {
