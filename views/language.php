@@ -1,5 +1,4 @@
 <?php
-// views/language.php
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +30,6 @@
 
 <script>
 function setLanguage(lang) {
-    // Save language preference
     fetch('index.php?action=set-language', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
