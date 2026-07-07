@@ -1,5 +1,4 @@
 <?php
-// views/messages.php - No emojis, consistent theme
 ?>
 <!DOCTYPE html>
 <html lang="en">
