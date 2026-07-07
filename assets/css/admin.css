@@ -1,0 +1,147 @@
+/* ===== SpazaSa Admin Styles ===== */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --admin-brown: #4a2c15;
+  --admin-teal: #5bbcb8;
+  --admin-dark: #3a3a3a;
+  --admin-light: #d8d8d8;
+  --admin-lighter: #e8e8e8;
+  --admin-blue-bg: #b8dce0;
+  --admin-card-bg: #c8d8dc;
+  --admin-white: #ffffff;
+  --admin-green: #7ed957;
+  --admin-red: #e57373;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: var(--admin-lighter); color: var(--admin-dark); min-height: 100vh; }
+button { cursor: pointer; }
+
+.admin-layout { display: flex; min-height: 100vh; }
+
+.admin-sidebar {
+  width: 220px;
+  background: var(--admin-brown);
+  padding: 20px;
+  color: white;
+  min-height: 100vh;
+}
+.admin-sidebar h2 { font-size: 20px; margin-bottom: 20px; }
+.admin-sidebar ul { list-style: none; padding: 0; margin: 0; }
+.admin-sidebar ul li { margin-bottom: 10px; }
+.admin-sidebar ul li a { color: white; text-decoration: none; display: block; padding: 8px 12px; border-radius: var(--radius); transition: background 0.2s; }
+.admin-sidebar ul li a:hover { background: rgba(255,255,255,0.1); }
+.admin-sidebar ul li a.active { background: var(--admin-teal); }
+
+.admin-main { flex: 1; padding: 30px; background: var(--admin-blue-bg); }
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.admin-stat {
+  background: var(--admin-card-bg);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.admin-stat .label { font-size: 12px; text-transform: uppercase; color: #555; font-weight: 700; }
+.admin-stat .value { font-size: 32px; font-weight: 700; }
+
+.admin-table-wrap {
+  background: var(--admin-lighter);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin-table th {
+  background: #b8c8d0;
+  padding: 10px;
+  text-align: left;
+  font-weight: 700;
+}
+.admin-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.admin-table tr:hover td { background: #e0e8eb; }
+
+.btn-approve {
+  padding: 6px 14px;
+  background: var(--admin-teal);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-approve:hover { background: #3a9e9a; }
+
+.btn-reject {
+  padding: 6px 14px;
+  background: var(--admin-red);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-reject:hover { background: #c0392b; }
+
+.btn-delete {
+  padding: 6px 14px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-delete:hover { background: #c0392b; }
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.status-badge.pending { background: #f5d76e; color: #7a5a00; }
+.status-badge.approved { background: var(--admin-green); color: #1a5c00; }
+.status-badge.rejected { background: var(--admin-red); color: #7a0000; }
+.status-badge.sold { background: #bdc3c7; color: #2c3e50; }
+
+.admin-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--admin-dark);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: transform 0.3s;
+  z-index: 9999;
+}
+.admin-toast.show { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 768px) {
+  .admin-sidebar { width: 180px; }
+  .admin-stats { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .admin-layout { flex-direction: column; }
+  .admin-sidebar { width: 100%; min-height: auto; }
+}
