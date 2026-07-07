@@ -1,5 +1,4 @@
 <?php
-// views/chat.php - Working with inline onclick and SESSION defined
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,16 +59,9 @@
 </div>
 
 <script>
-// =============================================
-// PHP VARIABLES (injected)
-// =============================================
 const OTHER_USER_ID = <?= json_encode($otherUserId) ?>;
 const PRODUCT_ID = <?= json_encode($productId) ?>;
 const SESSION_USER_ID = <?= json_encode($_SESSION['user_id'] ?? 0) ?>;
-
-// =============================================
-// SESSION (to avoid warning in app.js)
-// =============================================
 const SESSION = {
     userId: <?= json_encode($_SESSION['user_id'] ?? 0) ?>,
     userName: <?= json_encode($_SESSION['full_name'] ?? null) ?>,
@@ -78,9 +70,6 @@ const SESSION = {
 
 console.log('Chat loaded: OTHER_USER_ID=', OTHER_USER_ID, 'PRODUCT_ID=', PRODUCT_ID);
 
-// =============================================
-// TOAST NOTIFICATION
-// =============================================
 function showToast(msg) {
     let t = document.getElementById('toast');
     if (!t) {
@@ -94,27 +83,15 @@ function showToast(msg) {
     clearTimeout(t._timeout);
     t._timeout = setTimeout(() => t.classList.remove('show'), 2800);
 }
-
-// =============================================
-// SCROLL TO BOTTOM
-// =============================================
 function scrollToBottom() {
     const container = document.getElementById('chatMessages');
     container.scrollTop = container.scrollHeight;
 }
-
-// =============================================
-// ESCAPE HTML
-// =============================================
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
-
-// =============================================
-// APPEND MESSAGE
-// =============================================
 function appendMessage(message, isOwn) {
     const container = document.getElementById('chatMessages');
     const emptyMsg = container.querySelector('.empty-message');
@@ -126,10 +103,6 @@ function appendMessage(message, isOwn) {
     container.appendChild(div);
     scrollToBottom();
 }
-
-// =============================================
-// SEND CHAT (global function, called inline)
-// =============================================
 function sendChat() {
     const input = document.getElementById('chatInput');
     if (!input) {
@@ -163,7 +136,6 @@ function sendChat() {
     .then(data => {
         console.log('Send response:', data);
         if (data.success) {
-            // Optimistically add message
             const container = document.getElementById('chatMessages');
             const emptyMsg = container.querySelector('.empty-message');
             if (emptyMsg) emptyMsg.remove();
@@ -190,9 +162,6 @@ function sendChat() {
     });
 }
 
-// =============================================
-// POLL NEW MESSAGES
-// =============================================
 let lastMessageId = <?= !empty($messages) ? end($messages)['message_id'] : 0 ?>;
 
 function pollNewMessages() {
@@ -209,14 +178,11 @@ function pollNewMessages() {
         }
     })
     .catch(err => {
-        // Silent fail – polling continues
+
         console.warn('Poll error:', err);
     });
 }
 
-// =============================================
-// START POLLING
-// =============================================
 setInterval(pollNewMessages, 3000);
 setTimeout(pollNewMessages, 500);
 scrollToBottom();
