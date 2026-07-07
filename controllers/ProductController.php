@@ -1,5 +1,4 @@
 <?php
-// controllers/ProductController.php
 
 require_once __DIR__ . '/../models/Product.php';
 require_once __DIR__ . '/../models/Category.php';
@@ -16,10 +15,6 @@ class ProductController {
         $this->categoryModel = new Category();
         $this->userModel = new User();
     }
-
-    /**
-     * Display the sell form
-     */
     public function showSell() {
         if (!isset($_SESSION['user_id'])) {
             header('Location: index.php?action=login');
@@ -28,17 +23,11 @@ class ProductController {
         $categories = $this->categoryModel->getAll();
         include __DIR__ . '/../views/sell.php';
     }
-
-    /**
-     * Process the sell form (create a new product)
-     */
     public function sell() {
         if (!isset($_SESSION['user_id'])) {
             header('Location: index.php?action=login');
             exit;
         }
-        
-        // Validate that the user exists
         $seller = $this->userModel->getById($_SESSION['user_id']);
         if (!$seller) {
             session_destroy();
@@ -98,7 +87,6 @@ class ProductController {
             exit;
         }
 
-        // Handle image uploads
         $this->handleImageUploads($productId);
 
         $_SESSION['sell_success'] = 'Item listed successfully! Waiting for admin approval.';
@@ -106,21 +94,15 @@ class ProductController {
         exit;
     }
 
-    /**
-     * Handle image uploads for a product
-     */
     private function handleImageUploads($productId) {
         $uploadDir = __DIR__ . '/../assets/uploads/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
 
-        // Cover image
         if (isset($_FILES['cover_image']) && $_FILES['cover_image']['error'] === UPLOAD_ERR_OK) {
             $this->saveImage($_FILES['cover_image'], $productId, $uploadDir, true);
         }
-
-        // Additional images
         if (isset($_FILES['images']) && !empty($_FILES['images']['tmp_name'][0])) {
             $sortOrder = 0;
             foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
@@ -138,9 +120,6 @@ class ProductController {
         }
     }
 
-    /**
-     * Save a single image
-     */
     private function saveImage($file, $productId, $targetDir, $isCover = false, $sortOrder = 0) {
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
@@ -158,10 +137,6 @@ class ProductController {
         }
         return false;
     }
-
-    /**
-     * Show the edit form for a product
-     */
     public function showEdit() {
         if (!isset($_SESSION['user_id'])) {
             header('Location: index.php?action=login');
@@ -179,12 +154,9 @@ class ProductController {
 
         $categories = $this->categoryModel->getAll();
         $images = $this->productModel->getImages($productId);
-        include __DIR__ . '/../views/sell.php'; // reuse sell view
+        include __DIR__ . '/../views/sell.php'; 
     }
 
-    /**
-     * Process the edit form
-     */
     public function edit() {
         if (!isset($_SESSION['user_id'])) {
             header('Location: index.php?action=login');
@@ -234,9 +206,6 @@ class ProductController {
         exit;
     }
 
-    /**
-     * Delete a product
-     */
     public function delete() {
         if (!isset($_SESSION['user_id'])) {
             header('Location: index.php?action=login');
