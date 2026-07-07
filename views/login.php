@@ -1,5 +1,4 @@
-<?php
-// views/login.php
+<?php 
 ?>
 <!DOCTYPE html>
 <html lang="en">
