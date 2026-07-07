@@ -1,5 +1,5 @@
 <?php
-// views/admin/dashboard.php
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
