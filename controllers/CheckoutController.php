@@ -1,5 +1,4 @@
 <?php
-// controllers/CheckoutController.php
 
 require_once __DIR__ . '/../models/Cart.php';
 require_once __DIR__ . '/../models/Product.php';
@@ -38,8 +37,6 @@ class CheckoutController {
 
         try {
             $this->db->beginTransaction();
-
-            // Group by seller
             $sellerItems = [];
             foreach ($items as $item) {
                 $product = $this->productModel->getById($item['product_id']);
@@ -124,8 +121,6 @@ class CheckoutController {
                 }
             }
         }
-
-        // Clear session data for receipt
         unset($_SESSION['checkout_success']);
         unset($_SESSION['payment_reference']);
         unset($_SESSION['order_ids']);
