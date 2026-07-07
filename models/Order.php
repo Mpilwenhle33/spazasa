@@ -1,5 +1,4 @@
 <?php
-// models/Order.php
 
 require_once __DIR__ . '/../config/DatabaseConnection.php';
 
@@ -63,10 +62,6 @@ class Order {
         $stmt->execute([$reference]);
         return $stmt->fetchAll();
     }
-
-    /**
-     * Get orders where user is the buyer
-     */
     public function getByBuyer($buyerId) {
         $sql = "SELECT o.*, 
                        s.username as seller_username, s.full_name as seller_name,
@@ -80,10 +75,6 @@ class Order {
         $stmt->execute([$buyerId]);
         return $stmt->fetchAll();
     }
-
-    /**
-     * Get orders where user is the seller
-     */
     public function getBySeller($sellerId) {
         $sql = "SELECT o.*, 
                        b.username as buyer_username, b.full_name as buyer_name,
