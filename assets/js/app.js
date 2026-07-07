@@ -1,10 +1,4 @@
-// =====================================================
-// SpazaSa - Complete Application JavaScript
-// =====================================================
 
-// =============================================
-// SESSION FALLBACK
-// =============================================
 if (typeof SESSION === 'undefined') {
     var SESSION = {
         userId: 0,
@@ -14,15 +8,6 @@ if (typeof SESSION === 'undefined') {
     console.warn('SESSION was not defined, using default.');
 }
 
-// =============================================
-// GLOBAL VARIABLES (set in PHP views)
-// =============================================
-// SESSION = { userId, userName, isLoggedIn }
-// LANG = 'english' | 'isizulu' | 'sesotho' | 'afrikaans'
-
-// =============================================
-// TOAST NOTIFICATION
-// =============================================
 function showToast(msg) {
     let t = document.getElementById('toast');
     if (!t) {
@@ -37,9 +22,6 @@ function showToast(msg) {
     t._timeout = setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-// =============================================
-// NAVIGATION HELPERS
-// =============================================
 function goTo(page, params = {}) {
     let url = 'index.php?action=' + page;
     for (let key in params) {
@@ -52,17 +34,12 @@ function goToAdmin() {
     window.location = 'admin.php';
 }
 
-// =============================================
-// USER MENU DROPDOWN
-// =============================================
 function toggleUserMenu() {
     const dropdown = document.getElementById('userDropdown');
     if (dropdown) {
         dropdown.classList.toggle('open');
     }
 }
-
-// Close dropdown when clicking outside
 document.addEventListener('click', function(e) {
     const menu = document.getElementById('userDropdown');
     const avatar = document.getElementById('userAvatar');
@@ -71,13 +48,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// =============================================
-// CART FUNCTIONS
-// =============================================
 
-/**
- * Add item to cart and redirect to checkout (BUY NOW)
- */
 async function buyNow(productId) {
     if (!SESSION || !SESSION.isLoggedIn) {
         showToast('Please login first');
@@ -112,9 +83,6 @@ async function buyNow(productId) {
     }
 }
 
-/**
- * Add item to cart and stay on page (ADD TO CART)
- */
 async function addToCart(productId) {
     if (!SESSION || !SESSION.isLoggedIn) {
         showToast('Please login first');
@@ -147,17 +115,12 @@ async function addToCart(productId) {
     }
 }
 
-/**
- * Remove item from cart (cart page)
- */
+
 async function removeFromCart(cartItemId) {
     if (!confirm('Remove this item from cart?')) return;
     window.location = 'index.php?action=remove-from-cart&id=' + cartItemId;
 }
 
-/**
- * Refresh the cart badge in the navigation
- */
 async function refreshCartBadge() {
     try {
         const res = await fetch('index.php?action=cart-count');
@@ -167,13 +130,9 @@ async function refreshCartBadge() {
             badge.textContent = data.count || 0;
         }
     } catch (e) {
-        // Silent fail
     }
 }
 
-// =============================================
-// WISHLIST FUNCTIONS (for grid cards)
-// =============================================
 async function toggleWishlist(productId) {
     if (!SESSION || !SESSION.isLoggedIn) {
         showToast('Please login first');
@@ -206,9 +165,6 @@ async function toggleWishlist(productId) {
     }
 }
 
-// =============================================
-// CHAT FUNCTIONS
-// =============================================
 let chatUserId = null;
 let chatProductId = null;
 let chatLastId = 0;
@@ -349,13 +305,9 @@ async function pollNewMessages() {
             container.scrollTop = container.scrollHeight;
         }
     } catch (e) {
-        // Silent fail
     }
 }
 
-// =============================================
-// AUTH MODAL
-// =============================================
 function showAuthModal(mode = 'login') {
     let modal = document.getElementById('authModal');
     if (!modal) {
@@ -503,16 +455,10 @@ function doLogout() {
     window.location = 'index.php?action=logout';
 }
 
-// =============================================
-// ADMIN ACCESS
-// =============================================
 function openAdmin() {
     window.location = 'admin.php';
 }
 
-// =============================================
-// FILTER PRODUCTS
-// =============================================
 function filterProducts() {
     const search = document.getElementById('searchInput')?.value || '';
     goTo('search', { q: search });
@@ -522,9 +468,6 @@ function filterCategory(categoryId) {
     goTo('category', { id: categoryId });
 }
 
-// =============================================
-// SELL MODAL
-// =============================================
 function openSellModal() {
     if (!SESSION || !SESSION.isLoggedIn) {
         showToast('Please login first');
@@ -544,9 +487,6 @@ function closeSellOnBg(e) {
     if (e.target === document.getElementById('sellModal')) closeSellModal();
 }
 
-// =============================================
-// LANGUAGE SELECTION
-// =============================================
 function setLanguage(lang) {
     fetch('index.php?action=set-language', {
         method: 'POST',
@@ -565,9 +505,6 @@ function setLanguage(lang) {
     .catch(() => showToast('Failed to set language'));
 }
 
-// =============================================
-// INITIALIZATION
-// =============================================
 document.addEventListener('DOMContentLoaded', function() {
     if (SESSION && SESSION.isLoggedIn) {
         refreshCartBadge();
@@ -583,9 +520,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// =============================================
-// EXPOSE FUNCTIONS TO GLOBAL SCOPE
-// =============================================
 window.buyNow = buyNow;
 window.addToCart = addToCart;
 window.removeFromCart = removeFromCart;
