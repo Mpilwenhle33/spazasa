@@ -1,5 +1,4 @@
 <?php
-// views/admin/products.php
 ?>
 <!DOCTYPE html>
 <html lang="en">
