@@ -1,6 +1,4 @@
 <?php
-// views/receipt.php
-// $orders, $allItems, $totalAmount, $paymentRef are passed from CheckoutController
 ?>
 <!DOCTYPE html>
 <html lang="en">
