@@ -1,5 +1,5 @@
 <?php
-// views/sell.php
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
